@@ -16,19 +16,19 @@ class User extends Migration
             ],
             'username' => [
                 'type' => 'VARCHAR',
-                'constraint' => 100,
+                'constraint' => 255,
                 'null' => FALSE,
                 'unique' => TRUE,
             ],
             'email' => [
                 'type' => 'VARCHAR',
-                'constraint' => 100,
+                'constraint' => 255,
                 'null' => FALSE,
                 'unique' => TRUE,
             ],
             'password' => [
                 'type' => 'VARCHAR',
-                'constraint' => 100,
+                'constraint' => 255,
                 'null' => FALSE,
             ],
             'role' => [
