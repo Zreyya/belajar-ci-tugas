@@ -38,6 +38,7 @@ $routes->get('ajax/destinations','TransaksiController::destinations', ['filter' 
 $routes->get('ajax/costs','TransaksiController::costs', ['filter' => 'auth']);
 
 $routes->resource('api/products', ['controller' => 'Api\ProdukController']);
+$routes->get('api/transactions', 'Api\TransaksiController::index');
 
 $routes->get('faq', 'Home::faq', ['filter' => 'auth']);
 $routes->get('profile', 'Home::profile', ['filter' => 'auth']);
