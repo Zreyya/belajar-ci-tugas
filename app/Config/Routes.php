@@ -40,6 +40,12 @@ $routes->get('ajax/costs','TransaksiController::costs', ['filter' => 'auth']);
 $routes->resource('api/products', ['controller' => 'Api\ProdukController']);
 $routes->get('api/transactions', 'Api\TransaksiController::index');
 
+// Rute untuk CRUD Diskon
+$routes->get('/diskon', 'DiskonController::index');
+$routes->post('/diskon/create', 'DiskonController::create');
+$routes->post('/diskon/update/(:num)', 'DiskonController::update/$1');
+$routes->get('/diskon/delete/(:num)', 'DiskonController::delete/$1');
+
 $routes->get('faq', 'Home::faq', ['filter' => 'auth']);
 $routes->get('profile', 'Home::profile', ['filter' => 'auth']);
 $routes->get('contact', 'Home::contact', ['filter' => 'role']);

@@ -16,9 +16,17 @@
       </form>
     </div><!-- End Search Bar -->
 
-    <nav class="header-nav ms-auto">
+    </div><?php if (isset($diskon) && !empty($diskon)): ?>
+      <div class="d-none d-lg-block ms-auto me-3">
+        <span class="badge bg-success" style="padding: 8px 15px; font-size: 0.9rem;">
+          Hari ini ada diskon <?= number_to_currency($diskon['nominal'], 'IDR') ?> per item
+        </span>
+      </div>
+    <?php else: ?>
+      <div class="ms-auto"></div> 
+    <?php endif; ?>
+    <nav class="header-nav"> 
       <ul class="d-flex align-items-center">
-
         <li class="nav-item d-block d-lg-none">
           <a class="nav-link nav-icon search-bar-toggle " href="#">
             <i class="bi bi-search"></i>

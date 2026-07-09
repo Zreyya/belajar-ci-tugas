@@ -9,11 +9,14 @@ use App\Services\RajaOngkirService;
 use App\Models\TransactionModel;
 use App\Models\TransactionDetailModel;
 
+use App\Models\DiscountModel;
+
 class TransaksiController extends BaseController
 {
     protected $cart;
     protected $transactionModel;
     protected $transactionDetailModel;
+    protected $discountModel;
 
 public function __construct()
 {
@@ -21,13 +24,17 @@ public function __construct()
     $this->cart = service('cart');
     $this->transactionModel = new TransactionModel();
     $this->transactionDetailModel = new TransactionDetailModel(); 
+    $this->discountModel = new DiscountModel(); // Inisialisasi Model Diskon
 }
 
     public function index()
 {  
+    $diskon = $this->discountModel->where('tanggal', date('Y-m-d'))->first();
+
     $data = [
         'items' => $this->cart->contents(),
-        'total' => $this->cart->total() 
+        'total' => $this->cart->total(),
+        'diskon' => $diskon
     ];
 
     return view('v_keranjang', $data);
@@ -100,9 +107,12 @@ public function cart_clear()
 
 public function checkout()
 {  
+    $diskon = $this->discountModel->where('tanggal', date('Y-m-d'))->first();
+
     $data = [
         'items' => $this->cart->contents(),
-        'total' => $this->cart->total() 
+        'total' => $this->cart->total(),
+        'diskon' => $diskon
     ];
 
     return view('v_checkout', $data);
@@ -169,6 +179,10 @@ public function buy()
         return redirect()->back();
     }
 
+    $discountModel = new \App\Models\DiscountModel();
+    $diskon = $discountModel->where('tanggal', date('Y-m-d'))->first();
+    $nominal_diskon = (isset($diskon) && !empty($diskon)) ? $diskon['nominal'] : 0;
+
     $db = \Config\Database::connect();
     $db->transStart(); 
 
@@ -201,7 +215,7 @@ public function buy()
             'transaction_id' => $transactionId,
             'product_id'     => $item['id'],
             'jumlah'         => $item['qty'],
-            'diskon'         => 0,
+            'diskon'         => $nominal_diskon,
             'subtotal_harga' => $item['qty'] * $item['price'] 
         ]);
     }

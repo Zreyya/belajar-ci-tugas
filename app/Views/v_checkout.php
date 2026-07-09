@@ -66,7 +66,22 @@
       ?>
               <tr>
                   <td><?= $item['name'] ?></td>
-                  <td><?= number_to_currency($item['price'], 'IDR') ?></td>
+                  
+                  <td>
+                      <?php if (isset($diskon) && !empty($diskon)): ?>
+                          <?php $hargaAsli = $item['price'] + $diskon['nominal']; ?>
+                          <del class="text-danger" style="font-size: 0.9rem;">
+                              <?= number_to_currency($hargaAsli, 'IDR') ?>
+                          </del><br>
+                          <span class="text-dark fw-bold">
+                              <?= number_to_currency($item['price'], 'IDR') ?>
+                          </span>
+                      <?php else: ?>
+                          <span class="text-dark fw-bold">
+                              <?= number_to_currency($item['price'], 'IDR') ?>
+                          </span>
+                      <?php endif; ?>
+                  </td> 
                   <td><?= $item['qty'] ?></td>
                   <td><?= number_to_currency($item['price'] * $item['qty'], 'IDR') ?></td>
               </tr>
