@@ -29,6 +29,11 @@
                 <i class="bi bi-tag"></i>
                 <span>Diskon</span>
             </a>
+            <li class="nav-item">
+            <a class="nav-link <?php echo (uri_string() == 'pembelian') ? "" : "collapsed" ?>" href="<?= base_url('pembelian') ?>">
+                <i class="bi bi-cart-check-fill"></i>
+                <span>Pembelian</span>
+            </a>
         </li><!-- End Produk Nav --> 
         <?php
         }

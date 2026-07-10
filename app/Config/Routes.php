@@ -46,6 +46,11 @@ $routes->post('/diskon/create', 'DiskonController::create');
 $routes->post('/diskon/update/(:num)', 'DiskonController::update/$1');
 $routes->get('/diskon/delete/(:num)', 'DiskonController::delete/$1');
 
+$routes->get('/pembelian', 'PembelianController::index', ['filter' => 'auth']);
+$routes->get('/pembelian/ubah_status/(:num)', 'PembelianController::ubah_status/$1', ['filter' => 'auth']);
+
+$routes->resource('api/discounts', ['controller' => 'Api\DiscountController']);
+
 $routes->get('faq', 'Home::faq', ['filter' => 'auth']);
 $routes->get('profile', 'Home::profile', ['filter' => 'auth']);
 $routes->get('contact', 'Home::contact', ['filter' => 'role']);
